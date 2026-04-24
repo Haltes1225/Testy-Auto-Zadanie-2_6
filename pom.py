@@ -17,7 +17,7 @@ class KodillaStorePom:
     @property
     def search_results(self):
         try:
-            return WebDriverWait(self.driver, 10).until(
+            return WebDriverWait(self.driver, 5).until(
                 EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".element"))
             )
         except TimeoutException:
