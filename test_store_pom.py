@@ -35,8 +35,15 @@ def test_search(driver):
         print(result.text)
         print("\n")
 
-def test_search_result_Laptop(driver):
+def test_search_result_amount(driver):
     url = "https://kodilla.com/pl/test/store"
     driver.get(url)
 
-    assert_amount(driver, "Laptop", 3)
+    assert_amount(driver, "NoteBook", 2)
+    assert_amount(driver, "School", 1)
+    assert_amount(driver, "Brand", 1)
+    assert_amount(driver, "Business", 0)
+    assert_amount(driver, "Gaming", 1)
+    assert_amount(driver, "Powerful", 0)
+
+
