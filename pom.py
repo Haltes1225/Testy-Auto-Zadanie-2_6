@@ -22,3 +22,10 @@ class KodillaStorePom:
             )
         except TimeoutException:
             return []
+        
+    def search(self, text):
+        search_input = self.search_bar
+        search_input.clear()
+        search_input.send_keys(text)
+
+        return self.search_results

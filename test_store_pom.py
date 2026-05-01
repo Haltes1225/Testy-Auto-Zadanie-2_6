@@ -1,4 +1,24 @@
+import pytest
 from pom import KodillaStorePom
+
+@pytest.mark.parametrize("search_phrase, expected_amount", [
+    ("NoteBook", 2),
+    ("School", 1),
+    ("Brand", 1),
+    ("Business", 0),
+    ("Gaming", 1),
+    ("Powerful", 0),
+])
+
+def test_search_result_amount2(driver, search_phrase, expected_amount):
+    url = "https://kodilla.com/pl/test/store"
+    driver.get(url)
+    store_page = KodillaStorePom(driver)
+
+    results = store_page.search(search_phrase)
+
+    assert len(results) == expected_amount, \
+        f"Search for '{search_phrase}' expected {expected_amount} results, but found {len(results)}"
 
 def assert_amount(driver, search_phrase, amount):
 
@@ -15,10 +35,7 @@ def assert_amount(driver, search_phrase, amount):
     
     page = KodillaStorePom(driver)
 
-    page.search_bar.clear()
-    page.search_bar.send_keys(search_phrase)
-
-    assert len(page.search_results) == amount
+    assert len(page.search(search_phrase)) == amount
 
 def assert_amount_compare(driver, search_phrase_1, search_phrase_2):
 
@@ -32,15 +49,7 @@ def assert_amount_compare(driver, search_phrase_1, search_phrase_2):
     
     page = KodillaStorePom(driver)
 
-    page.search_bar.clear()
-    page.search_bar.send_keys(search_phrase_1)
-    search_results_1 = page.search_results
-
-    page.search_bar.clear()
-    page.search_bar.send_keys(search_phrase_2)
-    search_results_2 = page.search_results
-
-    assert len(search_results_1) == len(search_results_2)
+    assert len(page.search(search_phrase_1)) == len(page.search(search_phrase_2))
 
 def test_search_result_amount(driver):
     url = "https://kodilla.com/pl/test/store"
