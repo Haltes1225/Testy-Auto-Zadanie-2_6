@@ -2,12 +2,13 @@ import pytest
 from pom import KodillaStorePom
 
 @pytest.mark.parametrize("search_phrase, expected_amount", [
-    ("NoteBook", 3),
+    ("NoteBook", 2),
     ("School", 1),
     ("Brand", 1),
     ("Business", 0),
     ("Gaming", 1),
     ("Powerful", 0),
+    #("NoteBook", 3) #fail assertion
 ])
 
 def test_search_result_amount(driver, search_phrase, expected_amount):
@@ -21,12 +22,13 @@ def test_search_result_amount(driver, search_phrase, expected_amount):
         f"Search for '{search_phrase}' expected {expected_amount} results, but found {len(results)}"
 
 @pytest.mark.parametrize("search_phrase_1, search_phrase_2", [
-    ("Laptop", "laptopTTTT"),
+    ("Laptop", "laptop"),
     ("Laptop", "LAPTOP"),
     ("Laptop", "lApToP"),
     ("Laptop", "lAPTOP"),
     ("Laptop", "lapTOP"),
     ("Laptop", "laptoP"),
+    #("Laptop", "laptopPPP") #fail assertion
 ])
 
 def test_search_result_case_sensitivity(driver,search_phrase_1,search_phrase_2):
